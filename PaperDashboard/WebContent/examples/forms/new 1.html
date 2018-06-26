@@ -1,0 +1,65 @@
+   <!-- List<Locations> cities=leaddao.getAllCities();
+   request.setAttribute("cities", cities); -->
+   
+	                                       <div class="form-group">
+	                                     <label class="control-label">Select City<star>*</star></label>
+	                                        <select   class="selectpicker"  data-size="10"  
+	                                               id="city"
+	                                               name="city"
+	                                               type="text"
+	                                               required="true"
+	                                               autocomplete="off"
+	                                               data-live-search="true"
+	                                              
+	                                           >
+	                                        <option value="0" selected>--Select Your City--</option>
+	                                        <c:forEach items="${cities}" var="city">     
+	                                       <option value="${city.cityName}">${city.cityName}</option>
+	                                         </c:forEach>   
+	                                           </select>
+	                                    </div>
+	                                   
+	                                   
+	                                
+	                                   <div class="form-group ">
+	                                          <label class="  control-label">Postal Code<star>*</star></label>
+	                                        
+											
+											<select  class="selectpicker" 
+	                                               id="postalCode"
+	                                               name="postalCode"
+	                                               type="text"
+	                                               required="true"
+	                                               autocomplete="off"
+	                                               data-live-search="true"
+	                                           >
+	                                           </select>
+										</div> 
+										
+	<script type="text/javascript">
+   
+      $("#city").on("change",function(){
+    	  
+    	  
+    	  var cityName=$("#city").val();
+    	  
+    	  /* alert(cityName); */
+    	  $('#postalCode').empty();
+        		$.get('AjaxForLocations',{
+        		
+        			cityName:cityName
+        			
+        	    	},function(response) {
+        	    		
+        	             $.each(response, function(index, value) {
+        	            	  $('#postalCode').append($('<option>', { 
+        	            	        value: value.locatonId,
+        	            	        text : value.locationName 
+        	            	    })); 
+        	            	   
+        	            	  $('.selectpicker').selectpicker('refresh');
+							});
+						});
+        			});
+        	
+    </script>
